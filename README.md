@@ -7,3 +7,7 @@ Add a user in rabbitmq (example : user xivo, pass xivo)
     rabbitmqctl set_permissions -p / xivo ".*" ".*" ".*" 
 
 Change the informations for the connexion in channels.js
+
+To run with docker :-)
+
+    docker run -d -p 8000:80 -v $(pwd):/var/www/html dockerfile/nginx
