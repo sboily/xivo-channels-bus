@@ -1,6 +1,6 @@
-var bus_host = '192.168.1.123';
-var bus_username = 'xivo';
-var bus_password = 'xivo';
+var bus_host = '192.168.32.41';
+var bus_username = 'sylvain';
+var bus_password = 'sylvain';
 
 var ws = new SockJS('http://' + bus_host + ':15674/stomp');
 var client = Stomp.over(ws);
