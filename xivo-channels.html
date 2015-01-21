@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/sockjs/0.3.4/sockjs.min.js"></script>
+  <script src="https://raw.githubusercontent.com/jmesnil/stomp-websocket/master/lib/stomp.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-countdown/2.0.1/jquery.plugin.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-countdown/2.0.1/jquery.countdown.min.js"></script>
+  <script src="channels.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <title>XiVO channels</title>
+</head>
+
+<body lang="en">
+
+  <div class="panel panel-default">
+    <div class="panel-heading" id="conn">CHANNELS &nbsp;</div>
+
+    <table class="table" id="channels">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>CallerIDnum</th>
+          <th>Extension</th>
+          <th>Elapse time</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div id="debug" class="col-md-3"></div>
+
+</body>
+</html>
+
