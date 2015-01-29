@@ -9,48 +9,79 @@ var debug = 0;
 client.heartbeat.incoming = 0;
 client.heartbeat.outgoing = 0;
 
+$(document).ready(function() {
+    tb = init_table();
+    client.connect(bus_username, bus_password, on_connect, on_error, '/');
+});
+
 client.debug = function(e) {
   if (debug == 1)
     $('#debug').append($("<code>").text(e));
 };
 
+init_table = function() {
+    var table = $('#channels').DataTable({
+        "order": [[ 3, 'asc' ]],
+        "createdRow": function(row, data, dataIndex) {
+            $(row).attr("id", data[4]);
+        },
+        "searching": false,
+        "info": false,
+        "paging": false,
+        "drawCallback": drawcallback
+    });
+
+    return table;
+}
+
+drawcallback = function(settings) {
+    var api = this.api();
+    var rows = api.rows( {page:'current'} ).nodes();
+    var last = null;
+
+    api.column(3, {page:'current'}).data().each(function (group, i) {
+        if (last !== group) {
+            $(rows).eq(i).before(
+                '<tr class="group"><td colspan="6">LinkedID : '+group+'</td></tr>'
+            );
+
+            last = group;
+        }
+    });
+}
+
 onmessage = function(m) {
   msg = $.parseJSON(m.body);
-  var $event_div = $('<tr>', {id: msg.data.LinkedID});
-  var $get_div = $('tr[id="' + msg.data.LinkedID + '"]');
 
-  if (msg.data.EventName == "CHAN_START" && $get_div.length == 0) {
-      cnx = $( "#channels tr:visible" ).length;
-      $('#channels').append($event_div
-                      .append("<td>" +
-                              cnx + "</td><td>" +
-                              msg.data.CallerIDnum + "</td><td>" +
-                              msg.data.Exten + "</td>" +
-                              "<td>00:00:00</td>"
-                             )
-                           );
+  if (msg.data.EventName == "CHAN_START") {
+      tb.row.add(['-',
+                  msg.data.CallerIDnum,
+                  msg.data.Exten,
+                  msg.data.LinkedID,
+                  msg.data.UniqueID,
+                  '00:00:00'
+                 ])
+            .draw();
 
       $('#channels').find('td:last')
-                    .append('<td>')
                     .countdown({since: new Date(), compact: true, format: 'HMS'});
   }
 
   if (msg.data.EventName == "CHAN_END") {
-      $get_div.fadeOut("slow", function() {
-        this.remove();
-      });
+      tb.rows('tr[id="' + msg.data.UniqueID + '"]')
+        .remove()
+        .draw();
   }
 
 }
-
-var on_connect = function(x) {
-  id = client.subscribe("/exchange/xivo/ami.CEL", onmessage);
-  $('#conn').append("<i class='glyphicon glyphicon-flash'>");
+  
+on_connect = function(x) {
+    id = client.subscribe("/exchange/xivo/ami.CEL", onmessage);
+    $('#conn').append("<i class='glyphicon glyphicon-flash'>");
 };
 
 var on_error =  function() {
-  console.log('error');
-  $('#conn').append("<i class='glyphicon glyphicon-remove'>");
+    console.log('error');
+    $('#conn').append("<i class='glyphicon glyphicon-remove'>");
 };
 
-client.connect(bus_username, bus_password, on_connect, on_error, '/');
