@@ -42,7 +42,7 @@ drawcallback = function(settings) {
     api.column(3, {page:'current'}).data().each(function (group, i) {
         if (last !== group) {
             $(rows).eq(i).before(
-                '<tr class="group"><td colspan="6">LinkedID : '+group+'</td></tr>'
+                '<tr class="group"><td colspan="7">LinkedID : '+group+'</td></tr>'
             );
 
             last = group;
@@ -59,7 +59,8 @@ onmessage = function(m) {
                   msg.data.Exten,
                   msg.data.LinkedID,
                   msg.data.UniqueID,
-                  '00:00:00'
+                  msg.origin_uuid,
+                  '00:00:00',
                  ])
             .draw();
 
