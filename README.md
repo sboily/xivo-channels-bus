@@ -1,4 +1,4 @@
-Upgrade your xivo to 15.03.
+Upgrade your xivo to 15.03 minimum.
 
 Add a user in rabbitmq (example : user xivo, pass xivo)
 
