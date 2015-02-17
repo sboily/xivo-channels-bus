@@ -1,4 +1,4 @@
-Edit your rabbitmq.config and changing tcp_listener to 0.0.0.0
+Upgrade your xivo to 15.03.
 
 Add a user in rabbitmq (example : user xivo, pass xivo)
 
