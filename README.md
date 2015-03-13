@@ -3,7 +3,7 @@
 What is it ?
 ============
 
-This is only un proof of concept to use rabbitmq websocket stomp to get in realtime all channels open in XiVO. The interface is writing in javascript and html.
+This is only un proof of concept to use rabbitmq websocket stomp to get in realtime all channels open in one or multiple XiVO. The interface is writing in javascript and html.
 
 ![Channels screenshot](/screenshots/channels.png?raw=true "Channels")
 
