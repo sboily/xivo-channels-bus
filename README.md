@@ -33,3 +33,5 @@ Asterisk users
 ==============
 
 You can use this interface with a simple asterisk, you only install xivo-amid and a rabbitmq server. That possible to do this with docker easily :)
+
+XIVO-AMID : https://github.com/xivo-pbx/xivo-amid/
